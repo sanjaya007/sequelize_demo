@@ -11,15 +11,4 @@ app.use(express.urlencoded({ extended: true }))
 // router middleware 
 router(app)
 
-
-/**
- * @openapi
- * /users/all:
- *   get:
- *     description: Get all users !
- *     responses:
- *       200:
- *         description: Returns a mysterious string.
- */
-
 app.listen(PORT, () => console.log("I am live at " + 9000))

@@ -5,6 +5,7 @@ const UserModel = db.users
 const addUser = async (req, res) => {
     try {
         const body = req.body
+        console.log(body)
         const newUser = await UserModel.create(body)
         res.json({ 
             status: "success",
@@ -27,7 +28,32 @@ const getUsers = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        
+        const body = req.body;
+        const isUserAvailable = await UserModel.findOne({
+            where: {
+                username: body.username
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            }
+        })
+
+        console.log(isUserAvailable)
+
+        if (!isUserAvailable){
+            return res.json({
+                status: "failed",
+                message: "Username or password is incorrect.",
+            })
+        }
+
+        if (isUserAvailable.password !== body.password){
+            return res.json({
+                status: "failed",
+                message: "Username or password is incorrect.",
+            })
+        }
+
     } catch (error) {
         console.log(error)
     }

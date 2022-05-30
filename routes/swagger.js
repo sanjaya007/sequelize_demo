@@ -17,7 +17,7 @@ const options = {
             url: 'http://localhost:9000'
         }
     ],
-    apis: ['./*.js'],
+    apis: ['./api_docs/*.js'],
   };
 
 const swaggerSpec = swaggerJSDoc(options)

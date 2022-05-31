@@ -4,8 +4,27 @@ const UserModel = db.users
 
 const addUser = async (req, res) => {
     try {
-        const body = req.body
-        console.log(body)
+
+        const body = {
+            firstname: req.body.firstname.trim(),
+            lastname: req.body.lastname.trim(),
+            username: req.body.username.trim(),
+            password: req.body.password.trim(),
+        }
+
+        const userExist = await UserModel.findOne({
+            where: {
+                username: body.username 
+            }
+        })
+
+        if(userExist){
+            return res.json({
+                status: "failed",
+                message: "Username already exist."
+            })
+        }
+
         const newUser = await UserModel.create(body)
         res.json({ 
             status: "success",
@@ -37,8 +56,6 @@ const loginUser = async (req, res) => {
                 exclude: ['createdAt', 'updatedAt']
             }
         })
-
-        console.log(isUserAvailable)
 
         if (!isUserAvailable){
             return res.json({

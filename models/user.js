@@ -19,6 +19,7 @@ const userModel = (sequelize) => {
         username: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
         password: {
             type: DataTypes.STRING,
@@ -26,7 +27,7 @@ const userModel = (sequelize) => {
         },
         // image: {
         //     type: DataTypes.STRING,
-        //     allowNull: false    
+        //     // allowNull: false    
         // }
     })
     return User
